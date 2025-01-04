@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Cuadro de Comportamiento</title>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 20px;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2em;
+        }
+        h1 img {
+            width: 50px;
+            vertical-align: middle;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1em;
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+        }
+        td {
+            background-color: #f9f9f9;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1><img src="https://img.icons8.com/color/50/motorbike.png" alt="Moto"> Podréis disfrutar de vuestras motos si os portáis bien</h1>
+
+    <h2>Lola 🦄</h2>
+    <table id="table-lola">
+        <thead>
+            <tr>
+                <th>Día / Tarea</th>
+                <th>Estrellas</th>
+                <th>Puntos Rojos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Lunes</td>
+                <td class="editable" data-user="lola" data-day="lunes" data-type="star"></td>
+                <td class="editable" data-user="lola" data-day="lunes" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Martes</td>
+                <td class="editable" data-user="lola" data-day="martes" data-type="star"></td>
+                <td class="editable" data-user="lola" data-day="martes" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Miércoles</td>
+                <td class="editable" data-user="lola" data-day="miércoles" data-type="star"></td>
+                <td class="editable" data-user="lola" data-day="miércoles" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Jueves</td>
+                <td class="editable" data-user="lola" data-day="jueves" data-type="star"></td>
+                <td class="editable" data-user="lola" data-day="jueves" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Viernes</td>
+                <td class="editable" data-user="lola" data-day="viernes" data-type="star"></td>
+                <td class="editable" data-user="lola" data-day="viernes" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Sábado</td>
+                <td class="editable" data-user="lola" data-day="sábado" data-type="star"></td>
+                <td class="editable" data-user="lola" data-day="sábado" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Domingo</td>
+                <td class="editable" data-user="lola" data-day="domingo" data-type="star"></td>
+                <td class="editable" data-user="lola" data-day="domingo" data-type="red-point"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Juan Carlos 🦸</h2>
+    <table id="table-juan-carlos">
+        <thead>
+            <tr>
+                <th>Día / Tarea</th>
+                <th>Estrellas</th>
+                <th>Puntos Rojos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Lunes</td>
+                <td class="editable" data-user="juan-carlos" data-day="lunes" data-type="star"></td>
+                <td class="editable" data-user="juan-carlos" data-day="lunes" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Martes</td>
+                <td class="editable" data-user="juan-carlos" data-day="martes" data-type="star"></td>
+                <td class="editable" data-user="juan-carlos" data-day="martes" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Miércoles</td>
+                <td class="editable" data-user="juan-carlos" data-day="miércoles" data-type="star"></td>
+                <td class="editable" data-user="juan-carlos" data-day="miércoles" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Jueves</td>
+                <td class="editable" data-user="juan-carlos" data-day="jueves" data-type="star"></td>
+                <td class="editable" data-user="juan-carlos" data-day="jueves" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Viernes</td>
+                <td class="editable" data-user="juan-carlos" data-day="viernes" data-type="star"></td>
+                <td class="editable" data-user="juan-carlos" data-day="viernes" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Sábado</td>
+                <td class="editable" data-user="juan-carlos" data-day="sábado" data-type="star"></td>
+                <td class="editable" data-user="juan-carlos" data-day="sábado" data-type="red-point"></td>
+            </tr>
+            <tr>
+                <td>Domingo</td>
+                <td class="editable" data-user="juan-carlos" data-day="domingo" data-type="star"></td>
+                <td class="editable" data-user="juan-carlos" data-day="domingo" data-type="red-point"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAD8F4OK7YRwSbG1dMSxjh-P28AtmDFbbo",
+            authDomain: "lola-y-juan-carlos.firebaseapp.com",
+            databaseURL: "https://lola-y-juan-carlos-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "lola-y-juan-carlos",
+            storageBucket: "lola-y-juan-carlos.appspot.com",
+            messagingSenderId: "732461681693",
+            appId: "1:732461681693:web:2848b5e284eb442de84af4"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Función para guardar datos
+        function guardarDato(user, day, type, value) {
+            database.ref(`${user}/${day}/${type}`).set(value);
+        }
+
+        // Función para cargar datos
+        function cargarDatos() {
+            database.ref().on('value', (snapshot) => {
+                const data = snapshot.val();
+                document.querySelectorAll('.editable').forEach(cell => {
+                    const user = cell.dataset.user;
+                    const day = cell.dataset.day;
+                    const type = cell.dataset.type;
+                    if (data && data[user] && data[user][day] && data[user][day][type]) {
+                        cell.textContent = data[user][day][type];
+                    } else {
+                        cell.textContent = '';
+                    }
+                });
+            });
+        }
+
+        // Listener para las celdas editables
+        document.querySelectorAll('.editable').forEach(cell => {
+            cell.addEventListener('click', () => {
+                const user = cell.dataset.user;
+                const day = cell.dataset.day;
+                const type = cell.dataset.type;
+                let value = parseInt(cell.textContent) || 0;
+                value++;
+                cell.textContent = value;
+                guardarDato(user, day, type, value);
+            });
+        });
+
+        // Cargar los datos iniciales
+        cargarDatos();
+    </script>
+</body>
+</html>
